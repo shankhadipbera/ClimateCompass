@@ -143,7 +143,7 @@ class MainActivity : AppCompatActivity() {
             .baseUrl("https://api.openweathermap.org/data/2.5/")
             .build().create(ApiInterface::class.java)
 
-        val response=retrofit.getWeatherData(city,"0220ce670bdd4f12b0593a26a09c6f02","metrics")
+        val response=retrofit.getWeatherData(city,"place your api key here","metrics")
         response.enqueue(object : Callback<ClimateCompass>{
             override fun onResponse(p0: Call<ClimateCompass>, p1: Response<ClimateCompass>) {
                 val responseBody = p1.body()
