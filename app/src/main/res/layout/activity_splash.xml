@@ -12,7 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="TextView"
+        android:text="@string/app_name"
+        android:textColor="#008EFF"
+        android:textSize="34sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -23,9 +26,8 @@
         android:layout_height="268dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.548"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.408"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        app:layout_constraintVertical_bias="0.209"
+        app:srcCompat="@drawable/cloud" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,7 +11,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#97D7F4"
+        android:background="#7AEBFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +34,7 @@
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/ser_back"
                     android:iconifiedByDefault="false"
-                    android:queryHint="Search City"
+                    android:queryHint="Search City For Weather"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -44,12 +44,12 @@
                     android:id="@+id/location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="16dp"
                     android:text="Location"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.537"
+                    app:layout_constraintHorizontal_bias="0.534"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/searchCity" />
 
@@ -57,7 +57,7 @@
                     android:id="@+id/textView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="15dp"
                     android:text="Temperature"
                     android:textColor="@color/black"
                     android:textSize="20sp"
@@ -70,7 +70,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="50dp"
-                    android:text="tmp"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -80,7 +79,7 @@
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="30dp"
                     android:text="Humudity"
                     android:textColor="@color/black"
                     android:textSize="20sp"
@@ -92,7 +91,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="50dp"
-                    android:text="hmd"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -114,20 +112,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="50dp"
-                    android:text="wndspd"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/textView11" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/currentLocationBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
+                    android:padding="5dp"
                     android:layout_marginBottom="30dp"
+                    android:background="@drawable/add_bck"
                     android:text="Current Location \n Details"
-                    android:textSize="20sp"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -135,25 +134,87 @@
                     android:id="@+id/notes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="150dp"
+                    android:layout_marginTop="20dp"
                     android:text="Notes"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/weatherBtn"
-                    app:layout_constraintStart_toStartOf="@+id/currentLocationBtn" />
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="@+id/currentLocationBtn"
+                    app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/weatherBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="30dp"
                     android:text="Weather \n Details"
-                    android:textSize="20sp"
+                    android:background="@drawable/add_bck"
+                    android:textSize="14sp"
+                    android:padding="5dp"
                     android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="@+id/currentLocationBtn"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/currentLocationBtn" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout"
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="25dp"
+                    app:boxStrokeColor="@color/black"
+                    app:hintTextColor="@color/black"
+                    app:layout_constraintEnd_toStartOf="@+id/addBtn"
+                    app:layout_constraintStart_toStartOf="@+id/textView11"
+                    app:layout_constraintTop_toBottomOf="@+id/notes">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/faviriteCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ser_back"
+                        android:hint="Add Favarite City"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
+                        android:textCursorDrawable="@null" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/addBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add"
+                    android:background="@drawable/add_bck"
+                    app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
+                    app:layout_constraintEnd_toEndOf="@+id/windSpeed"
+                    app:layout_constraintTop_toTopOf="@+id/textInputLayout"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <ListView
+                    android:id="@+id/listView"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintBottom_toTopOf="@+id/currentLocationBtn"
+                    app:layout_constraintEnd_toEndOf="@+id/addBtn"
+                    app:layout_constraintStart_toStartOf="@+id/textInputLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Favourite City List"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/addBtn"
+                    app:layout_constraintStart_toStartOf="@+id/textInputLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,10 +21,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.Locale
 import android.Manifest
 import android.content.Context
+import android.database.Cursor
 import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.provider.Settings
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.android.gms.tasks.OnFailureListener
@@ -36,6 +38,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
+    private lateinit var db: DatabaseHelper
+    private lateinit var adapter: ArrayAdapter<String>
+    private lateinit var namesList: ArrayList<String>
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var defaultCity:String= "Kolkata"
@@ -44,11 +49,31 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        db = DatabaseHelper(this)
+        namesList = ArrayList()
+
+        loadNames()
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
 
         getWeatherData(defaultCity)
 
+        binding.addBtn.setOnClickListener {
+            val name = binding.faviriteCity.text.toString().trim()
+            if (name.isNotEmpty()) {
+                if (db.addName(name)) {
+                    Toast.makeText(this, "City added to favourite list", Toast.LENGTH_SHORT).show()
+                    loadNames()
+                    hideKeyboard()
+                    binding.faviriteCity.text?.clear()
+                } else {
+                    Toast.makeText(this, "Error adding city", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(this, "Please enter a city name", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         binding.searchCity.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -86,6 +111,31 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        binding.listView.setOnItemClickListener { _, _, position, _ ->
+            val name = namesList[position]
+            getWeatherData(name)
+            defaultCity=name
+            //Toast.makeText(this, "Clicked: $name", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.listView.setOnItemLongClickListener { _, _, position, _ ->
+            val name = namesList[position]
+            AlertDialog.Builder(this)
+                .setTitle("Delete Name")
+                .setMessage("Are you sure you want to delete $name?")
+                .setPositiveButton("Yes") { _, _ ->
+                    if (db.deleteName(name)) {
+                        Toast.makeText(this, "$name deleted from favourite list", Toast.LENGTH_SHORT).show()
+                        loadNames()
+                    } else {
+                        Toast.makeText(this, "Error in deleting city", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .setNegativeButton("No", null)
+                .show()
+            true
+        }
+
     }
 
     private fun getWeatherData(city:String) {
@@ -94,7 +144,7 @@ class MainActivity : AppCompatActivity() {
             .baseUrl("https://api.openweathermap.org/data/2.5/")
             .build().create(ApiInterface::class.java)
 
-        val response=retrofit.getWeatherData(city,"1074a2b3d9981035e6d35044a105839e","metrics")
+        val response=retrofit.getWeatherData(city,"0220ce670bdd4f12b0593a26a09c6f02","metrics")
         response.enqueue(object : Callback<ClimateCompass>{
             override fun onResponse(p0: Call<ClimateCompass>, p1: Response<ClimateCompass>) {
                 val responseBody = p1.body()
@@ -308,4 +358,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
     } */
+
+    private fun loadNames() {
+        namesList.clear()
+        val cursor: Cursor = db.getAllNames()
+        if (cursor.moveToFirst()) {
+            do {
+                namesList.add(cursor.getString(cursor.getColumnIndexOrThrow("name")))
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, namesList)
+        binding.listView.adapter = adapter
+    }
 }
