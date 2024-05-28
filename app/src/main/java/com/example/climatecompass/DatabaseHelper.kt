@@ -29,6 +29,9 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     }
 
     fun addName(city: String): Boolean {
+        if (nameExists(city)) {
+            return false
+        }
         val db = this.writableDatabase
         val contentValues = ContentValues().apply {
             put(COLUMN_NAME, city)
@@ -45,5 +48,12 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     fun deleteName(name: String): Boolean {
         val db = this.writableDatabase
         return db.delete(TABLE_NAME, "$COLUMN_NAME=?", arrayOf(name)) > 0
+    }
+    private fun nameExists(name: String): Boolean {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("SELECT 1 FROM $TABLE_NAME WHERE LOWER($COLUMN_NAME) = LOWER(?)", arrayOf(name))
+        val exists = cursor.count > 0
+        cursor.close()
+        return exists
     }
 }

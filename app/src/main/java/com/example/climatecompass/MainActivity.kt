@@ -63,15 +63,14 @@ class MainActivity : AppCompatActivity() {
             val name = binding.faviriteCity.text.toString().trim()
             if (name.isNotEmpty()) {
                 if (db.addName(name)) {
-                    Toast.makeText(this, "City added to favourite list", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "$name added to Favourite City list", Toast.LENGTH_SHORT).show()
                     loadNames()
-                    hideKeyboard()
                     binding.faviriteCity.text?.clear()
                 } else {
-                    Toast.makeText(this, "Error adding city", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "city already exists", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                Toast.makeText(this, "Please enter a city name", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please enter a city", Toast.LENGTH_SHORT).show()
             }
         }
 
