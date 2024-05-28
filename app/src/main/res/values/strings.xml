@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ClimateCompass</string>
+    <string name="openweather_api_key">0220ce670bdd4f12b0593a26a09c6f02</string>
 </resources>
