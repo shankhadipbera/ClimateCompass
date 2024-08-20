@@ -19,6 +19,8 @@ To clone and run this application, you'll need [Git](https://git-scm.com), [Andr
 ## Clone this repository
 git clone https://github.com/shankhadipbera/ClimateCompass
 
+in MainActivity.kt , place your api key (get it from "https://home.openweathermap.org/users/sign_up") in fetchWeatherData() function on getWeatherData() method
+
 Open the project in Android Studio
     
 ## Usage/Examples
