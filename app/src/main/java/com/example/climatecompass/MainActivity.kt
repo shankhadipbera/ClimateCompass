@@ -106,7 +106,6 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "No internet connection", Toast.LENGTH_LONG).show()
                 }
             } else {
-                requestInternetPermission()
             }
         }
 
@@ -233,18 +232,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-/*    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                // Permission granted, you can perform the location related task
-                getLastKnownLocation()
-            } else {
-                // Permission denied
-                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }  */
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -342,21 +329,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val INTERNET_PERMISSION_REQUEST_CODE = 2
     }
-
-  /*  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == INTERNET_PERMISSION_REQUEST_CODE) {
-            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                if (isInternetAvailable()) {
-                    getWeatherData("city_name")
-                } else {
-                    Toast.makeText(this, "No internet connection", Toast.LENGTH_LONG).show()
-                }
-            } else {
-                Toast.makeText(this, "Internet permission denied", Toast.LENGTH_LONG).show()
-            }
-        }
-    } */
+    
 
     private fun loadNames() {
         namesList.clear()
